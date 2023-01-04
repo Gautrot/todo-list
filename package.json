@@ -1,0 +1,33 @@
+{
+  "name": "todo-list",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "13.0.7",
+    "next": "13.0.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@heroicons/react": "^2.0.13",
+    "autoprefixer": "^10.4.13",
+    "classnames": "^2.3.2",
+    "eslint": "^8.30.0",
+    "eslint-config-next": "^12.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "formik": "^2.2.9",
+    "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
+    "tailwindcss": "^3.2.4",
+    "yup": "^0.32.11"
+  }
+}

@@ -8,7 +8,7 @@ const Layout = (props) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <main className="bg-slate-900 text-slate-300 h-screen">
+      <main className="bg-slate-900 text-slate-300">
         <header></header>
         <div className="p-4">
           <h1 className="text-4xl font-bold pb-5">{title}</h1>

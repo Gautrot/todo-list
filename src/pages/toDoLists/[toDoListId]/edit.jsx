@@ -30,12 +30,16 @@ const EditList = (props) => {
 
   return (
     <Layout title="Edit your To Do list">
-      <span>Edit your To Do list's name below.</span>
-      <div className="p-4 bg-slate-800 border-0 rounded-lg">
-        <ToDoForm
-          onSubmit={handleSubmit}
-          initValues={toDoLists.find(({ id }) => id === toDoListId)}
-        />
+      <div className="flex h-screen">
+        <div className="mb-auto mt-0 w-full">
+          <span>Edit your To Do list's name below.</span>
+          <div className="p-4 bg-slate-800 border-0 rounded-lg">
+            <ToDoForm
+              onSubmit={handleSubmit}
+              initValues={toDoLists.find(({ id }) => id === toDoListId)}
+            />
+          </div>
+        </div>
       </div>
     </Layout>
   )

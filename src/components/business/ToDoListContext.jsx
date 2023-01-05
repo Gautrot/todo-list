@@ -7,6 +7,10 @@ const initialToDoItems = [
     id: 1,
     name: "Item 1",
   },
+  {
+    id: 2,
+    name: "Item 2",
+  },
 ]
 
 const initialToDoLists = [
@@ -87,39 +91,9 @@ const ToDoListContext = (props) => {
   )
 
   const editToDoItem = useCallback((updatedToDoItem, toDoListId) => {
-    // const selectedToDoItem = toDoLists.find(
-    //   ({ id }) => id === toDoListId
-    // ).list
-    // .find(({ id }) => id === updatedToDoItem.id)
-    // .map((toDoItem) => {
-    //   toDoItem.id === updatedToDoItem.id ? toDoItem : null
-    // })
-
-    // const selectedToDoItem = toDoItems.find(
-    //   ({ id }) => id === updatedToDoItem.id
-    // )
-    // console.log(selectedToDoItem, updatedToDoItem)
-
     setToDoItems(
-      (toDoLists) => toDoLists.find(({ id }) => id === toDoListId).list
-      // .map((toDoItem) => {
-      //   toDoItem.id === updatedToDoItem.id ? updatedToDoItem : toDoItem
-      // })
+      (toDoLists) => toDoLists.filter(({ id }) => id === toDoListId).list
     )
-
-    // const test = console.log(test.list.flatMap())
-
-    // toDoLists.map((toDoList) => {
-    //   const test = toDoList.id === toDoListId && toDoList
-    //   console.log(typeof test)
-    // })
-
-    // test.list.find(({ list }) => list)
-    // .find(({ id }) => id === toDoListId)
-    // .map(({ list }) => {
-    //   console.log(list)
-    //   list
-    // })
   }, [])
 
   return (

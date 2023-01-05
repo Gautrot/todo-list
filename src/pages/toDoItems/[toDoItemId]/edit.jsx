@@ -24,21 +24,25 @@ const EditItem = (props) => {
   const handleSubmit = useCallback(
     (val) => {
       editToDoItem(val, toDoListId)
-      // router.push("/")
+      router.push("/")
     },
     [editToDoItem, toDoListId, router]
   )
 
   return (
     <Layout title="Edit your item">
-      <span>Edit the selected item from your To Do list below.</span>
-      <div className="p-4 bg-slate-800 border-0 rounded-lg">
-        <ToDoForm
-          onSubmit={handleSubmit}
-          initValues={toDoLists
-            .find(({ id }) => id === toDoListId)
-            .list.find(({ id }) => id === toDoItemId)}
-        />
+      <div className="flex h-screen">
+        <div className="mb-auto mt-0 w-full">
+          <span>Edit the selected item from your To Do list below.</span>
+          <div className="p-4 bg-slate-800 border-0 rounded-lg">
+            <ToDoForm
+              onSubmit={handleSubmit}
+              initValues={toDoLists
+                .find(({ id }) => id === toDoListId)
+                .list.find(({ id }) => id === toDoItemId)}
+            />
+          </div>
+        </div>
       </div>
     </Layout>
   )

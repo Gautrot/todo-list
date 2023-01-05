@@ -1,11 +1,11 @@
 import { useToDoListContext } from "@/components/business/ToDoListContext"
 import { TrashIcon } from "@heroicons/react/20/solid"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { useRouter } from "next/router"
 
 const ToDoItem = (props) => {
-  const { toDoList } = props
-  const { deleteToDoItem, editToDoItem } = useToDoListContext()
+  const { toDoList, onCheckboxChange } = props
+  const { deleteToDoItem } = useToDoListContext()
   const router = useRouter()
 
   const handleDeleteToDoItem = useCallback(
@@ -34,20 +34,6 @@ const ToDoItem = (props) => {
     [router, toDoList.id]
   )
 
-  const [checked, setChecked] = useState()
-  const handleChecked = useCallback(
-    (e) => {
-      const toDoItemId = Number.parseInt(
-        e.currentTarget.getAttribute("data-todoitem-id"),
-        10
-      )
-      const isChecked = setChecked(e.currentTarget.checked)
-
-      editToDoItem(toDoItemId, isChecked)
-    },
-    [editToDoItem]
-  )
-
   return (
     <>
       {toDoList.list.map((toDoItem) => (
@@ -60,7 +46,7 @@ const ToDoItem = (props) => {
               type="checkbox"
               className="appearance-none bg-white checked:bg-blue-500 p-2 mr-4"
               data-todoitem-id={toDoItem.id}
-              onChange={handleChecked}
+              onChange={(e) => onCheckboxChange(e, toDoItem.name)}
             />
           </label>
           <button

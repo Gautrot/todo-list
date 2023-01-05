@@ -18,9 +18,13 @@ const AddList = () => {
 
   return (
     <Layout title="Add a new To Do list">
-      <span>Add a new To Do list by filling the form below.</span>
-      <div className="p-4 bg-slate-800 border-0 rounded-lg">
-        <ToDoForm onSubmit={handleSubmit} />
+      <div className="flex h-screen">
+        <div className="mb-auto mt-0 w-full">
+          <span>Add a new To Do list by filling the form below.</span>
+          <div className="p-4 bg-slate-800 border-0 rounded-lg">
+            <ToDoForm onSubmit={handleSubmit} />
+          </div>
+        </div>
       </div>
     </Layout>
   )

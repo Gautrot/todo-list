@@ -4,27 +4,25 @@ import { useCallback } from "react"
 import { useRouter } from "next/router"
 
 const ToDoItem = (props) => {
-  const { toDoList, onCheckboxChange } = props
-  const { deleteToDoItem } = useToDoListContext()
+  const { toDoList } = props
+  const { deleteToDoItem, onCheckboxChange } = useToDoListContext()
   const router = useRouter()
 
   const handleDeleteToDoItem = useCallback(
     (e) => {
       const toDoItemId = Number.parseInt(
-        e.currentTarget.getAttribute("data-todoitem-id"),
-        10
+        e.currentTarget.getAttribute("data-todoitem-id")
       )
 
-      deleteToDoItem(toDoItemId)
+      deleteToDoItem(toDoItemId, toDoList.id)
     },
-    [deleteToDoItem]
+    [deleteToDoItem, toDoList.id]
   )
 
   const handleEditToDoItem = useCallback(
     (e) => {
       const toDoItemId = Number.parseInt(
-        e.currentTarget.getAttribute("data-todoitem-id"),
-        10
+        e.currentTarget.getAttribute("data-todoitem-id")
       )
       router.push({
         pathname: `/toDoItems/${toDoItemId}/edit`,
@@ -32,6 +30,14 @@ const ToDoItem = (props) => {
       })
     },
     [router, toDoList.id]
+  )
+
+  const handleCheckbox = useCallback(
+    (e) => {
+      const toDoItemName = e.currentTarget.getAttribute("data-todoitem-name")
+      onCheckboxChange(e, toDoItemName)
+    },
+    [onCheckboxChange]
   )
 
   return (
@@ -46,7 +52,8 @@ const ToDoItem = (props) => {
               type="checkbox"
               className="appearance-none bg-white checked:bg-blue-500 p-2 mr-4"
               data-todoitem-id={toDoItem.id}
-              onChange={(e) => onCheckboxChange(e, toDoItem.name)}
+              data-todoitem-name={toDoItem.name}
+              onChange={handleCheckbox}
             />
           </label>
           <button

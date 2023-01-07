@@ -7,10 +7,6 @@ const initialToDoItems = [
     id: 1,
     name: "Item 1",
   },
-  {
-    id: 2,
-    name: "Item 2",
-  },
 ]
 
 const initialToDoLists = [
@@ -31,7 +27,7 @@ const ToDoListContext = (props) => {
   }, [newListId])
 
   const createToDoList = useCallback(
-    (toDoList) => {
+    (toDoList) =>
       setToDoLists((toDoLists) => [
         ...toDoLists,
         {
@@ -44,14 +40,15 @@ const ToDoListContext = (props) => {
             },
           ],
         },
-      ])
-    },
+      ]),
     [getNewListId]
   )
 
   const deleteToDoList = useCallback(
-    (toDoListId) =>
-      setToDoLists(toDoLists.filter((toDoList) => toDoList.id !== toDoListId)),
+    (toDoListId) => {
+      setToDoLists(toDoLists.filter((toDoList) => toDoList.id !== toDoListId))
+      setActiveTab(undefined)
+    },
     [toDoLists]
   )
 
@@ -72,29 +69,69 @@ const ToDoListContext = (props) => {
   }, [newItemId])
 
   const createToDoItem = useCallback(
-    (toDoItem) => {
-      setToDoItems((toDoItems) => [
-        ...toDoItems,
-        {
+    (toDoItem, toDoListId) =>
+      toDoLists
+        .find(({ id }) => id === toDoListId)
+        .list.splice(toDoItems.length, 0, {
           id: getNewItemId(),
           ...toDoItem,
-        },
-      ])
-    },
-    [getNewItemId]
+        }),
+    [getNewItemId, toDoItems, toDoLists]
   )
 
   const deleteToDoItem = useCallback(
-    (toDoItemId) =>
-      setToDoItems(toDoItems.filter((toDoItem) => toDoItem.id !== toDoItemId)),
-    [toDoItems]
+    (toDoItemId, toDoListId) => {
+      setToDoLists(
+        toDoLists.map((toDoList) => {
+          if (toDoList.id === toDoListId) {
+            return {
+              ...toDoList,
+              list: toDoList.list.filter(
+                (toDoItem) => toDoItem.id !== toDoItemId
+              ),
+            }
+          }
+
+          return toDoList
+        })
+      )
+    },
+    [toDoLists]
   )
 
-  const editToDoItem = useCallback((updatedToDoItem, toDoListId) => {
-    setToDoItems(
-      (toDoLists) => toDoLists.filter(({ id }) => id === toDoListId).list
-    )
-  }, [])
+  const editToDoItem = useCallback(
+    (updatedToDoItem, toDoListId) => {
+      setToDoLists(
+        toDoLists.map((toDoList) => {
+          if (toDoList.id === toDoListId) {
+            return {
+              ...toDoList,
+              list: toDoList.list.map((toDoItem) =>
+                toDoItem.id === updatedToDoItem.id ? updatedToDoItem : toDoItem
+              ),
+            }
+          }
+
+          return toDoList
+        })
+      )
+    },
+    [toDoLists]
+  )
+
+  const [countChecked, setCountChecked] = useState([])
+  const onCheckboxChange = (e, item) => {
+    if (e.target.checked) {
+      setCountChecked([...countChecked, item])
+    } else {
+      setCountChecked((prev) =>
+        prev.filter((currItem) => currItem.value !== item.value)
+      )
+    }
+  }
+
+  const [activeTab, setActiveTab] = useState(undefined)
+  const onClickTabItem = (tab) => setActiveTab(tab)
 
   return (
     <Context.Provider
@@ -108,6 +145,10 @@ const ToDoListContext = (props) => {
         createToDoItem,
         deleteToDoItem,
         editToDoItem,
+        countChecked,
+        onCheckboxChange,
+        activeTab,
+        onClickTabItem,
       }}
     />
   )

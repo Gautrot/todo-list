@@ -9,16 +9,15 @@ import {
 import { useRouter } from "next/router"
 import { useCallback } from "react"
 
-const ToDoContent = (props) => {
-  const { activeTab, onCheckboxChange, countChecked } = props
-  const { toDoLists, deleteToDoList } = useToDoListContext()
+const ToDoContent = () => {
+  const { toDoLists, deleteToDoList, countChecked, activeTab } =
+    useToDoListContext()
   const router = useRouter()
 
   const handleEditToDoList = useCallback(
     (e) => {
       const toDoListId = Number.parseInt(
-        e.currentTarget.getAttribute("data-todolist-id"),
-        10
+        e.currentTarget.getAttribute("data-todolist-id")
       )
       router.push(`/toDoLists/${toDoListId}/edit`)
     },
@@ -28,8 +27,7 @@ const ToDoContent = (props) => {
   const handleDeleteToDoList = useCallback(
     (e) => {
       const toDoListId = Number.parseInt(
-        e.currentTarget.getAttribute("data-todolist-id"),
-        10
+        e.currentTarget.getAttribute("data-todolist-id")
       )
 
       deleteToDoList(toDoListId)
@@ -37,13 +35,22 @@ const ToDoContent = (props) => {
     [deleteToDoList]
   )
 
-  const handleCreateToDoItem = useCallback(() => {
-    router.push("/toDoItems/add")
-  }, [router])
+  const handleCreateToDoItem = useCallback(
+    (e) => {
+      const toDoListId = Number.parseInt(
+        e.currentTarget.getAttribute("data-todolist-id")
+      )
+      router.push({
+        pathname: "/toDoItems/add",
+        query: { listId: toDoListId },
+      })
+    },
+    [router]
+  )
 
   return (
     <div>
-      {activeTab === undefined ? (
+      {activeTab === undefined || activeTab === null ? (
         <div className="flex h-screen">
           <div className="m-auto text-slate-700 font-black text-4xl text-center ">
             Select a tab above to show its content here
@@ -103,10 +110,7 @@ const ToDoContent = (props) => {
                     }}
                   />
                 </div>
-                <ToDoItem
-                  toDoList={toDoList}
-                  onCheckboxChange={onCheckboxChange}
-                />
+                <ToDoItem toDoList={toDoList} />
               </div>
             </div>
           )

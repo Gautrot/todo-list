@@ -7,13 +7,14 @@ import { useRouter } from "next/router"
 const AddItem = () => {
   const { createToDoItem } = useToDoListContext()
   const router = useRouter()
+  const toDoListId = Number.parseInt(router.query.listId)
 
   const handleSubmit = useCallback(
     (val) => {
-      createToDoItem(val)
+      createToDoItem(val, toDoListId)
       router.push("/")
     },
-    [router, createToDoItem]
+    [createToDoItem, toDoListId, router]
   )
 
   return (

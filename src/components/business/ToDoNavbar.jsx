@@ -25,10 +25,10 @@ const ToDoTab = ({ onClick, active = false, toDoList, countChecked = [] }) => {
   )
 }
 
-const ToDoNavbar = (props) => {
-  const { toDoLists } = useToDoListContext()
+const ToDoNavbar = () => {
+  const { toDoLists, onCheckboxChange, countChecked, onClickTabItem } =
+    useToDoListContext()
   const router = useRouter()
-  const { onClickTabItem, onCheckboxChange, countChecked } = props
 
   const handleCreateToDoList = useCallback(() => {
     router.push("/toDoLists/add")
@@ -39,7 +39,7 @@ const ToDoNavbar = (props) => {
       <ul className="flex flex-wrap -mb-px text-center">
         {toDoLists.map((toDoList) => (
           <ToDoTab
-            key={toDoList.name}
+            key={toDoList.id}
             toDoList={toDoList}
             countChecked={countChecked}
             onClick={onClickTabItem}

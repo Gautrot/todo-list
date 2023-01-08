@@ -11,7 +11,7 @@ const ToDoTab = ({ onClick, active = false, toDoList, checkedCount }) => {
 
   return (
     <li className={`${active ? "active" : ""} tab-item`} onClick={onChangeTab}>
-      <button className="inline-block p-2 rounded-t-lg border-2 border-transparent hover:bg-slate-700 hover:text-gray-300 hover:border-gray-500">
+      <Button className="inline-block p-2 rounded-t-lg border-2 border-transparent hover:bg-slate-700 hover:text-gray-300 hover:border-gray-500">
         <div className="flex flex-row">
           <span className="p-1 mr-5">{toDoList.name}</span>
           <div className="px-2 py-1 rounded-l-lg bg-green-700">
@@ -21,7 +21,7 @@ const ToDoTab = ({ onClick, active = false, toDoList, checkedCount }) => {
             {toDoList.list.length}
           </div>
         </div>
-      </button>
+      </Button>
     </li>
   )
 }

@@ -1,4 +1,5 @@
 import { useToDoListContext } from "@/components/business/ToDoListContext"
+import Button from "@/components/ui/Button"
 import { PlusIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
 import { useCallback } from "react"
@@ -44,13 +45,13 @@ const ToDoNavbar = () => {
             onClick={onClickTabItem}
           />
         ))}
-        <button
+        <Button
           className="inline-block p-2 rounded-t-lg border-2 border-transparent hover:bg-slate-700 hover:text-gray-300 hover:border-gray-500"
           onClick={handleCreateToDoList}
           title="Add a new list"
         >
           <PlusIcon className="h-8 w-7" />
-        </button>
+        </Button>
       </ul>
     </div>
   )

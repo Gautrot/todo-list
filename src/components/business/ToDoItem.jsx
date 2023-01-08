@@ -5,7 +5,8 @@ import { useRouter } from "next/router"
 
 const ToDoItem = (props) => {
   const { toDoList } = props
-  const { deleteToDoItem, onCheckboxChange } = useToDoListContext()
+  const { deleteToDoItem, setFilters, filters, setCheckedCount, checkedCount } =
+    useToDoListContext()
   const router = useRouter()
 
   const handleDeleteToDoItem = useCallback(
@@ -32,13 +33,15 @@ const ToDoItem = (props) => {
     [router, toDoList.id]
   )
 
-  const handleCheckbox = useCallback(
-    (e) => {
-      const toDoItemName = e.currentTarget.getAttribute("data-todoitem-name")
-      onCheckboxChange(e, toDoItemName)
-    },
-    [onCheckboxChange]
-  )
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      setFilters(filters.filter((f) => f !== e.target.value))
+      setCheckedCount(checkedCount + 1)
+    } else {
+      setFilters([...filters, e.target.value])
+      setCheckedCount(checkedCount - 1)
+    }
+  }
 
   return (
     <>
@@ -51,8 +54,6 @@ const ToDoItem = (props) => {
             <input
               type="checkbox"
               className="appearance-none bg-white checked:bg-blue-500 p-2 mr-4"
-              data-todoitem-id={toDoItem.id}
-              data-todoitem-name={toDoItem.name}
               onChange={handleCheckbox}
             />
           </label>

@@ -3,7 +3,7 @@ import { PlusIcon } from "@heroicons/react/20/solid"
 import { useRouter } from "next/router"
 import { useCallback } from "react"
 
-const ToDoTab = ({ onClick, active = false, toDoList, countChecked = [] }) => {
+const ToDoTab = ({ onClick, active = false, toDoList, checkedCount }) => {
   const onChangeTab = () => {
     onClick(toDoList.name)
   }
@@ -14,7 +14,7 @@ const ToDoTab = ({ onClick, active = false, toDoList, countChecked = [] }) => {
         <div className="flex flex-row">
           <span className="p-1 mr-5">{toDoList.name}</span>
           <div className="px-2 py-1 rounded-l-lg bg-green-700">
-            {countChecked.length}
+            {checkedCount}
           </div>
           <div className="px-2 py-1 rounded-r-lg bg-red-800">
             {toDoList.list.length}
@@ -26,7 +26,7 @@ const ToDoTab = ({ onClick, active = false, toDoList, countChecked = [] }) => {
 }
 
 const ToDoNavbar = () => {
-  const { toDoLists, onCheckboxChange, countChecked, onClickTabItem } =
+  const { toDoLists, onCheckboxChange, checkedCount, onClickTabItem } =
     useToDoListContext()
   const router = useRouter()
 
@@ -41,7 +41,7 @@ const ToDoNavbar = () => {
           <ToDoTab
             key={toDoList.id}
             toDoList={toDoList}
-            countChecked={countChecked}
+            checkedCount={checkedCount}
             onClick={onClickTabItem}
             onCheckboxChange={onCheckboxChange}
           />

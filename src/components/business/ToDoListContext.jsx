@@ -119,16 +119,16 @@ const ToDoListContext = (props) => {
     [toDoLists]
   )
 
-  const [countChecked, setCountChecked] = useState([])
-  const onCheckboxChange = (e, item) => {
-    if (e.target.checked) {
-      setCountChecked([...countChecked, item])
-    } else {
-      setCountChecked((prev) =>
-        prev.filter((currItem) => currItem.value !== item.value)
-      )
-    }
-  }
+  const [data, setData] = useState([]) // the array of objects
+  const [filters, setFilters] = useState([]) // the array of unchecked checkbox values
+  const filterData = useCallback(() => {
+    const filteredData = data.filter(
+      (item) => !filters.includes(item.checkboxValue)
+    )
+    setData(filteredData)
+  }, [data, filters])
+
+  const [checkedCount, setCheckedCount] = useState(0) // the count of checked checkboxes
 
   const [activeTab, setActiveTab] = useState(undefined)
   const onClickTabItem = (tab) => setActiveTab(tab)
@@ -145,8 +145,11 @@ const ToDoListContext = (props) => {
         createToDoItem,
         deleteToDoItem,
         editToDoItem,
-        countChecked,
-        onCheckboxChange,
+        filters,
+        setFilters,
+        filterData,
+        checkedCount,
+        setCheckedCount,
         activeTab,
         onClickTabItem,
       }}

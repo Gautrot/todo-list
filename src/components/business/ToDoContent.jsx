@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { useCallback } from "react"
 
 const ToDoContent = () => {
-  const { toDoLists, deleteToDoList, countChecked, activeTab } =
+  const { toDoLists, deleteToDoList, countChecked, filterData, activeTab } =
     useToDoListContext()
   const router = useRouter()
 
@@ -53,7 +53,8 @@ const ToDoContent = () => {
       {activeTab === undefined || activeTab === null ? (
         <div className="flex h-screen">
           <div className="m-auto text-slate-700 font-black text-4xl text-center ">
-            Select a tab above to show its content here
+            Select a tab above to show its content here, or create a new To Do
+            list by pressing the + icon
           </div>
         </div>
       ) : (
@@ -94,7 +95,9 @@ const ToDoContent = () => {
                   <div className="justify-items-end">
                     <button
                       className="p-2 justify-self-end"
-                      title="Filter by completed"
+                      data-todolist-id={toDoList.id}
+                      onClick={filterData}
+                      title="Filter by not completed"
                     >
                       <FunnelIcon className="h-7 w-7" />
                     </button>
@@ -104,9 +107,7 @@ const ToDoContent = () => {
                   <div
                     className="bg-green-700 h-2 rounded-full"
                     style={{
-                      width: `${
-                        (countChecked.length * 100) / toDoList.list.length
-                      }%`,
+                      width: `${(countChecked * 100) / toDoList.list.length}%`,
                     }}
                   />
                 </div>

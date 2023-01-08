@@ -61,7 +61,7 @@ const ToDoListContext = (props) => {
   }, [])
 
   const [newItemId, setNewItemId] = useState(2)
-  const [toDoItems, setToDoItems] = useState(initialToDoItems)
+  const [toDoItems] = useState(initialToDoItems)
   const getNewItemId = useCallback(() => {
     setNewItemId(newItemId + 1)
 

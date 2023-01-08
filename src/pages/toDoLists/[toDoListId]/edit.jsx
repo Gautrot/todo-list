@@ -7,7 +7,7 @@ import { useRouter } from "next/router"
 export const getServerSideProps = ({ params }) => ({
   props: {
     params: {
-      toDoListId: Number.parseInt(params.toDoListId, 10),
+      toDoListId: Number.parseInt(params.toDoListId),
     },
   },
 })
@@ -30,16 +30,12 @@ const EditList = (props) => {
 
   return (
     <Layout title="Edit your To Do list">
-      <div className="flex h-screen">
-        <div className="mb-auto mt-0 w-full">
-          <span>Edit your To Do list's name below.</span>
-          <div className="p-4 bg-slate-800 border-0 rounded-lg">
-            <ToDoForm
-              onSubmit={handleSubmit}
-              initValues={toDoLists.find(({ id }) => id === toDoListId)}
-            />
-          </div>
-        </div>
+      <span>Edit your To Do list's name below.</span>
+      <div className="p-4 bg-slate-800 border-0 rounded-lg">
+        <ToDoForm
+          onSubmit={handleSubmit}
+          initValues={toDoLists.find(({ id }) => id === toDoListId)}
+        />
       </div>
     </Layout>
   )

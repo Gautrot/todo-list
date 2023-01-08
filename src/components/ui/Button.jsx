@@ -3,7 +3,7 @@ import classNames from "classnames"
 const variants = {
   primary:
     "bg-blue-600 active:bg-blue-700 text-white text-white border-2 border-blue-800",
-  secondary: "active:bg-slate-400 text-slate-900",
+  clear: "",
 }
 const sizes = {
   sm: "px-2 py-1 text-sm",
@@ -12,11 +12,11 @@ const sizes = {
 }
 
 const Button = (props) => {
-  const { variant = "primary", size = "md", ...otherProps } = props
+  const { variant = "clear", size = "md", ...otherProps } = props
 
   return (
     <button
-      className={classNames("rounded-lg", variants[variant], sizes[size])}
+      className={classNames("rounded-lg p-2", variants[variant], sizes[size])}
       {...otherProps}
     />
   )

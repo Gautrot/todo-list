@@ -11,8 +11,12 @@ const Layout = (props) => {
       <main className="bg-slate-900 text-slate-300">
         <header></header>
         <div className="p-4">
-          <h1 className="text-4xl font-bold pb-5">{title}</h1>
-          <div>{children}</div>
+          <div className="flex h-screen">
+            <div className="mb-auto mt-0 w-full">
+              <h1 className="text-4xl font-bold pb-5">{title}</h1>
+              <div>{children}</div>
+            </div>
+          </div>
         </div>
         <footer></footer>
       </main>

@@ -26,8 +26,7 @@ const ToDoTab = ({ onClick, active = false, toDoList, checkedCount }) => {
 }
 
 const ToDoNavbar = () => {
-  const { toDoLists, onCheckboxChange, checkedCount, onClickTabItem } =
-    useToDoListContext()
+  const { toDoLists, checkedCount, onClickTabItem } = useToDoListContext()
   const router = useRouter()
 
   const handleCreateToDoList = useCallback(() => {
@@ -36,14 +35,13 @@ const ToDoNavbar = () => {
 
   return (
     <div className="mb-4 border-b border-gray-700">
-      <ul className="flex flex-wrap -mb-px text-center">
+      <ul className="flex flex-wrap text-center">
         {toDoLists.map((toDoList) => (
           <ToDoTab
             key={toDoList.id}
             toDoList={toDoList}
             checkedCount={checkedCount}
             onClick={onClickTabItem}
-            onCheckboxChange={onCheckboxChange}
           />
         ))}
         <button

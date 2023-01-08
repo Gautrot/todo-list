@@ -26,7 +26,9 @@ const ToDoForm = (props) => {
     >
       <Form className="flex flex-col">
         <FormInput name="name" label="Name" placeholder="Lorem ipsum" />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="primary">
+          Submit
+        </Button>
       </Form>
     </Formik>
   )

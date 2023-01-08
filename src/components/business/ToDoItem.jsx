@@ -2,6 +2,7 @@ import { useToDoListContext } from "@/components/business/ToDoListContext"
 import { TrashIcon } from "@heroicons/react/20/solid"
 import { useCallback } from "react"
 import { useRouter } from "next/router"
+import Button from "@/components/ui/Button"
 
 const ToDoItem = (props) => {
   const { toDoList } = props
@@ -57,21 +58,21 @@ const ToDoItem = (props) => {
               onChange={handleCheckbox}
             />
           </label>
-          <button
+          <Button
             data-todoitem-id={toDoItem.id}
             onClick={handleEditToDoItem}
             className="w-full text-left"
             title="Edit this item"
           >
             {toDoItem.name}
-          </button>
-          <button
+          </Button>
+          <Button
             data-todoitem-id={toDoItem.id}
             onClick={handleDeleteToDoItem}
             title="Remove this item"
           >
             <TrashIcon className="h-7 w-7" />
-          </button>
+          </Button>
         </div>
       ))}
     </>

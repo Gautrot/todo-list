@@ -11,7 +11,7 @@ import { useRouter } from "next/router"
 import { useCallback } from "react"
 
 const ToDoContent = () => {
-  const { toDoLists, deleteToDoList, countChecked, filterData, activeTab } =
+  const { toDoLists, deleteToDoList, checkedCount, filterData, activeTab } =
     useToDoListContext()
   const router = useRouter()
 
@@ -99,7 +99,7 @@ const ToDoContent = () => {
                 <div
                   className="bg-green-700 h-2 rounded-full"
                   style={{
-                    width: `${(countChecked * 100) / toDoList.list.length}%`,
+                    width: `${(checkedCount * 100) / toDoList.list.length}%`,
                   }}
                 />
               </div>
